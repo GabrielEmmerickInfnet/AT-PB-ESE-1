@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: pdv-service
+          uri: lb://pdv-service
+          predicates:
+            - Path=/api/pdv/**
+        - id: estoque-service
+          uri: lb://estoque-service
+          predicates:
+            - Path=/api/estoque/**
